@@ -87,7 +87,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/**").permitAll() // publicos
 //                        .requestMatchers(HttpMethod.POST,"/api/productos").authenticated() // jwt, da igual el rol
 //                        .requestMatchers(HttpMethod.PUT,"/api/productos/**").hasRole("ADMIN")
-                        .anyRequest().authenticated() // enviar jwt
+                        //.anyRequest().authenticated() // enviar jwt
+                                .anyRequest().permitAll()
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
