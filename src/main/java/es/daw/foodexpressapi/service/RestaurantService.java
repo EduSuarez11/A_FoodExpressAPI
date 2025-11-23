@@ -30,8 +30,8 @@ public class RestaurantService {
         //Restaurant restaurant = restaurantMapper.toEntity(restaurantDTO);
         Restaurant restaurant = toEntity(restaurantDTO);
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
-        //return Optional.of(restaurantMapper.toDTO(savedRestaurant));
-        return Optional.of(toDTO(savedRestaurant));
+        return Optional.of(restaurantMapper.toDTO(savedRestaurant));
+        //return Optional.of(toDTO(savedRestaurant));
     }
 
     public Restaurant toEntity(RestaurantDTO dto){
