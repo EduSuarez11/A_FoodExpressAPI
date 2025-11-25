@@ -26,6 +26,7 @@ public class RestaurantController {
 
     }
 
+    // PENDIENTE!! no usar optional. Gestionar excepción sQLException y devolver 404....
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO) {
@@ -34,10 +35,10 @@ public class RestaurantController {
 
         //return ResponseEntity.ok(result.get()); //200
         if (result.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(result.get());
+            return ResponseEntity.status(HttpStatus.CREATED).body(result.get()); //201
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build(); // 404
 
     }
 
@@ -49,6 +50,15 @@ public class RestaurantController {
             return ResponseEntity.noContent().build(); //ok sin contenido
         }
         return ResponseEntity.notFound().build(); //no ha encontrado el restaurante a borrar
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<RestaurantDTO> update(@PathVariable Long id,
+                                                @Valid @RequestBody RestaurantDTO restaurantDTO) {
+
+        return ResponseEntity.ok(restaurantService.update(id, restaurantDTO));
+
     }
 
 }

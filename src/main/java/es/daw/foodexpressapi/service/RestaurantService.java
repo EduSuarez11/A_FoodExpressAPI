@@ -49,6 +49,28 @@ public class RestaurantService {
         return true;
     }
 
+
+    /**
+     * El servicio no devuelve un Optional...
+     * @param id
+     * @param restaurantDTO
+     * @return
+     */
+    public RestaurantDTO update(Long id, RestaurantDTO restaurantDTO) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow( () -> new RuntimeException("No existe el restaurante " + id));
+
+        restaurant.setName(restaurantDTO.getName());
+        restaurant.setAddress(restaurantDTO.getAddress());
+        restaurant.setPhone(restaurantDTO.getPhone());
+
+        Restaurant updated = restaurantRepository.save(restaurant);
+
+        return restaurantMapper.toDTO(updated);
+    }
+
+
+    // ------------------
 //    public Restaurant toEntity(RestaurantDTO dto){
 //        Restaurant restaurant = new Restaurant();
 //        restaurant.setName(dto.getName());
