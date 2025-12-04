@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private String email;
 
     @ManyToOne
+    @JoinColumn(name="role_id")
     private Role role;
 
     // --------------------- 5 MÉTODOS DE LA INTERFACE UserDetails -----------------
